@@ -4,8 +4,21 @@ with nodes named foo, bar and baz.
 
 To use this:
 
-- Install Receptor.  (Clone the repo, `make receptor`, put it in your path.)
+- Clone the main Receptor repo.
+- Install Receptor.  (`make receptor`, put the `receptor` binary in your path.)
+- Install receptorctl.  (`make version`, `cd receptorctl`, `python3 setup.py`)
+
+- Clone this repo.
 - Run `makecerts.sh`, which will create certificates under `certs/`.
 - Run `receptor -c testconfig_foo.yml` to start the `foo` node.
 - Start the `bar` and `baz` nodes similarly.  They should talk to each other.
-- Interact with Receptor by connecting to the control sockets, optionally using receptorctl
+- Set your socket environment variable with `export RECEPTORCTL_SOCKET=/path/to/receptor.sock`
+- Interact with Receptor using receptorctl
+
+Once it's up and running, here are some interesting commands to try out:
+
+- `receptorctl status`
+- `receptorctl traceroute baz`
+- `receptorctl connect baz bash --tls-client foo_client --raw`
+- `seq 10 | receptorctl work submit sleepcat --payload=- --follow --rm --node=baz --tls-client foo_client`
+
