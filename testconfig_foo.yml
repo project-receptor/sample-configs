@@ -23,6 +23,7 @@
 - control-service:
     service: control
     filename: receptor.sock
+    tls: foo_tls
 
 - work-command:
     worktype: sleepcat
