@@ -1,0 +1,30 @@
+---
+- node:
+    id: foo
+
+- log-level: debug
+
+- tls-server:
+    name: foo_tls
+    cert: certs/testcert-foo.crt
+    key: certs/testcert-foo.key
+    requireclientcert: true
+    clientcas: certs/ca.crt
+
+- tls-client:
+    name: foo_client
+    cert: certs/testcert-foo.crt
+    key: certs/testcert-foo.key
+    rootcas: certs/ca.crt
+
+- tcp-listener:
+    port: 2222
+
+- control-service:
+    service: control
+    filename: receptor.sock
+
+- work-command:
+    worktype: sleepcat
+    command: /bin/bash
+    params: -c 'while read -r line; do echo $line; sleep 0.5; done'

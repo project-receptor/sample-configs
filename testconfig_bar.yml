@@ -1,0 +1,26 @@
+---
+- node:
+    id: bar
+
+- log-level: debug
+
+- tls-server:
+    name: bar
+    cert: certs/testcert-bar.crt
+    key: certs/testcert-bar.key
+
+- control-service:
+    service: control
+    filename: bar.sock
+    tls: bar
+
+- tcp-listener:
+    port: 3333
+
+- tcp-peer:
+    address: localhost:2222
+    redial: true
+
+- tcp-peer:
+    address: localhost:4444
+    redial: true
